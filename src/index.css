@@ -20,3 +20,8 @@ body,
   transition: background-color 0.3s, color 0.3s;
   min-height: 100vh;
 }
+
+.MuiDrawer-paper {
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+}

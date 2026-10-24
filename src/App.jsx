@@ -4,16 +4,18 @@ import Header from './components/Header'
 import './App.css'
 import Drawer from '@mui/material/Drawer';
 import { useDispatch, useSelector } from 'react-redux'
-import { calculateTotalPrice, changeDrawer, deleteProductFromBasket } from './redux/basketSlice'
+import { changeDrawer, deleteProductFromBasket } from './redux/basketSlice'
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
 import { useState } from 'react';
 
 function App() {
 
-  const { drawer, basket, totalPrice } = useSelector(store => store.basket);
+  const { drawer, basket } = useSelector(store => store.basket);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
+
+  const totalPrice = basket.reduce((total, product) => total + (product.count) * (product.price), 0);
 
   return (
     <>
@@ -27,13 +29,12 @@ function App() {
             return (
 
               <div key={product.id} className='flex-row'>
-                <img style={{ padding: '20px' }} src={product.images?.[0] || thumbnail} width={50} height={50} alt="" />
+                <img style={{ padding: '20px' }} src={product.images?.[0] || product.thumbnail} width={50} height={50} alt="" />
                 <p style={{ width: '300px' }}>Ürün : {product.title}</p>
                 <p>Miktar : {product.count}</p>
                 <p style={{ width: '200px', fontWeight: 'bold', textAlign: 'right' }}  >Fiyat : {product.price}$</p>
                 <button onClick={() => {
                   dispatch(deleteProductFromBasket(product));
-                  dispatch(calculateTotalPrice())
                   setOpen(true)
                 }}
                   style={{ backgroundColor: 'red', color: '#fff' }}>X</button>

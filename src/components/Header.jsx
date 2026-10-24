@@ -27,15 +27,7 @@ function Header() {
     }
 
     const changeTheme = () => {
-        const root = document.getElementById('root');
-        if (theme) {
-            root.style.backgroundColor = "black";
-            root.style.color = "#fff";
-        } else {
-            root.style.backgroundColor = "#fff";
-            root.style.color = "black";
-        }
-        setTheme(!theme);
+        setTheme(prev => (prev === 'light' ? 'dark' : 'light'))
     }
 
     return (

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom'
 import { CiSquareMinus, CiSquarePlus } from "react-icons/ci";
-import { addToBasket, calculateTotalPrice } from '../redux/basketSlice';
+import { addToBasket } from '../redux/basketSlice';
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
 import axios from 'axios';
@@ -41,7 +41,6 @@ function ProductDetail() {
 
     const addBasket = () => {
         dispatch(addToBasket({ ...product, count }));
-        dispatch(calculateTotalPrice());
         setOpen(true);
     }
 
@@ -72,7 +71,7 @@ function ProductDetail() {
                 autoHideDuration={2000}
                 onClose={() => setOpen(false)}
             >
-                <Alert variant='filled' onClose={() => setOpen(false)} severity="success">
+                <Alert variant='filled' open={open} onClose={() => setOpen(false)} severity="success">
                     Ürün eklendi
                 </Alert>
             </Snackbar>
