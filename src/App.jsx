@@ -4,18 +4,20 @@ import Header from './components/Header'
 import './App.css'
 import Drawer from '@mui/material/Drawer';
 import { useDispatch, useSelector } from 'react-redux'
-import { changeDrawer, decreaseCount, deleteProductFromBasket, increaseCount } from './redux/basketSlice'
+import { changeDrawer, decreaseCount, deleteProductFromBasket, increaseCount, selectTotalPrice } from './redux/basketSlice'
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function App() {
 
   const { drawer, basket } = useSelector(store => store.basket);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-
-  const totalPrice = basket.reduce((total, product) => total + (product.count) * (product.price), 0);
+  const totalPrice = useSelector(selectTotalPrice);
+  console.log(totalPrice);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -47,6 +49,16 @@ function App() {
           })
         }
         <div style={{ textAlign: 'center', fontWeight: 'bold', color: 'green' }} >Toplam Tutarınız : {totalPrice.toFixed(2)}$</div>
+        <div className='flex-row' style={{ padding: '20px' }}>
+          <button
+            onClick={() => {
+              dispatch(changeDrawer());
+              navigate('/checkout');
+            }}
+          >
+            Sepeti onayla
+          </button>
+        </div>
       </Drawer >
       <Snackbar
         anchorOrigin={{ vertical: 'bottom', horizontal: "left" }}

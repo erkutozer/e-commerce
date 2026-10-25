@@ -17,6 +17,8 @@ const writeBasketToStorage = (basket) => {
     localStorage.setItem('basket', JSON.stringify(basket));
 }
 
+export const selectTotalPrice = (state) =>
+    state.basket.basket.reduce((total, product) => total + (product.price) * (product.count), 0);
 
 export const basketSlice = createSlice({
     name: 'basket',
