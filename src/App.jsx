@@ -4,7 +4,7 @@ import Header from './components/Header'
 import './App.css'
 import Drawer from '@mui/material/Drawer';
 import { useDispatch, useSelector } from 'react-redux'
-import { changeDrawer, deleteProductFromBasket } from './redux/basketSlice'
+import { changeDrawer, decreaseCount, deleteProductFromBasket, increaseCount } from './redux/basketSlice'
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
 import { useState } from 'react';
@@ -24,14 +24,18 @@ function App() {
         <RouterConfig />
       </PageContainer>
       <Drawer anchor='right' open={drawer} onClose={() => dispatch(changeDrawer())}>
-        {
+        {basket.length === 0 ?
+          (<p>Sepetiniz boş</p>)
+          :
           basket && basket.map((product) => {
             return (
 
               <div key={product.id} className='flex-row'>
                 <img style={{ padding: '20px' }} src={product.images?.[0] || product.thumbnail} width={50} height={50} alt="" />
                 <p style={{ width: '300px' }}>Ürün : {product.title}</p>
-                <p>Miktar : {product.count}</p>
+                <button disabled={product.count <= 1} onClick={() => dispatch(decreaseCount(product))} >Azalt</button>
+                <p>Adet : {product.count}</p>
+                <button onClick={() => dispatch(increaseCount(product))} >Arttır</button>
                 <p style={{ width: '200px', fontWeight: 'bold', textAlign: 'right' }}  >Fiyat : {product.price}$</p>
                 <button onClick={() => {
                   dispatch(deleteProductFromBasket(product));
@@ -54,6 +58,7 @@ function App() {
           Ürün sepetten silindi
         </Alert>
       </Snackbar>
+
     </>
 
   )
