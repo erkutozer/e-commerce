@@ -53,9 +53,13 @@ export const basketSlice = createSlice({
                 product.count -= 1;
                 writeBasketToStorage(state.basket);
             }
+        },
+        clearBasket: (state) => {
+            state.basket = [];
+            writeBasketToStorage(state.basket);
         }
     }
 })
 
-export const { addToBasket, changeDrawer, deleteProductFromBasket, increaseCount, decreaseCount } = basketSlice.actions;
+export const { addToBasket, changeDrawer, deleteProductFromBasket, increaseCount, decreaseCount, clearBasket } = basketSlice.actions;
 export default basketSlice.reducer;

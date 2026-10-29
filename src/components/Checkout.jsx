@@ -1,7 +1,7 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { selectTotalPrice } from '../redux/basketSlice';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux'
+import { clearBasket, selectTotalPrice } from '../redux/basketSlice';
+import { replace, useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup'
 import { checkoutSchema } from '../validation/checkoutSchema';
 import { useForm } from 'react-hook-form';
@@ -17,6 +17,7 @@ function Checkout() {
     const { basket } = useSelector(store => store.basket);
     const totalPrice = useSelector(selectTotalPrice);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     if (basket.length === 0) {
         return (
@@ -28,7 +29,15 @@ function Checkout() {
     }
 
     const onSubmit = (data) => {
-        console.log('Sipariş bilgileri : ', data);
+        const order = {
+            orderNumber: `SP-${Date.now()}`,
+            customer: data,
+            items: basket,
+            totalPrice: totalPrice,
+            orderTime: new Date()
+        };
+        dispatch(clearBasket())
+        navigate('/order-success', { state: { order }, replace: true });
     }
 
     return (
