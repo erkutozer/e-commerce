@@ -1,0 +1,30 @@
+.checkout-form {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 30px;
+}
+
+.checkout-form label {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.checkout-input {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    font-size: 15px;
+}
+
+.checkout-input.has-error {
+    border-color: red;
+}
+
+.field-error {
+    color: red;
+    font-size: 13px;
+    margin: 0;
+}

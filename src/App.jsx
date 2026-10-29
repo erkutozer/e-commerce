@@ -16,7 +16,6 @@ function App() {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const totalPrice = useSelector(selectTotalPrice);
-  console.log(totalPrice);
   const navigate = useNavigate();
 
   return (
