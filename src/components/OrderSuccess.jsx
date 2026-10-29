@@ -1,4 +1,3 @@
-import React from 'react'
 import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 
 function OrderSuccess() {
@@ -11,7 +10,7 @@ function OrderSuccess() {
         return <Navigate to='/' replace />
     }
 
-    const { orderNumber, customer, items, totalPrice, orderTime } = order;
+    const { orderNumber, customer, items, totalPrice } = order;
     return (
         <div>
             <h2 style={{ color: 'green' }}>Siparişiniz alındı</h2>

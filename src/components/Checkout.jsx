@@ -1,7 +1,6 @@
-import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearBasket, selectTotalPrice } from '../redux/basketSlice';
-import { replace, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup'
 import { checkoutSchema } from '../validation/checkoutSchema';
 import { useForm } from 'react-hook-form';
@@ -34,7 +33,6 @@ function Checkout() {
             customer: data,
             items: basket,
             totalPrice: totalPrice,
-            orderTime: new Date()
         };
         dispatch(clearBasket())
         navigate('/order-success', { state: { order }, replace: true });
@@ -62,16 +60,16 @@ function Checkout() {
                 <input
                     id='fullName'
                     type="text"
-                    className={`checkout-input ${errors.fullname ? 'has-error' : ''}`}
-                    aria-invalid={errors.fullname ? 'true' : 'false'}
-                    {...register('fullname')}
+                    className={`checkout-input ${errors.fullName ? 'has-error' : ''}`}
+                    aria-invalid={errors.fullName ? 'true' : 'false'}
+                    {...register('fullName')}
                 />
-                {errors.fullname && <p className='field-error'>{errors.fullname.message}</p>}
+                {errors.fullName && <p className='field-error'>{errors.fullName.message}</p>}
 
                 <label htmlFor="email">E-posta</label>
                 <input type="email"
                     id='email'
-                    className={`checkout-input ${errors.city ? 'has-error' : ''}`}
+                    className={`checkout-input ${errors.email ? 'has-error' : ''}`}
                     aria-invalid={errors.email ? 'true' : 'false'}
                     {...register('email')}
                 />
@@ -80,7 +78,7 @@ function Checkout() {
                 <label htmlFor="phone">Telefon</label>
                 <input type="tel"
                     id='phone'
-                    className={`checkout-input ${errors.city ? 'has-error' : ''}`}
+                    className={`checkout-input ${errors.phone ? 'has-error' : ''}`}
                     {...register('phone')}
                 />
                 {errors.phone && <p className='field-error'>{errors.phone.message}</p>}
@@ -97,7 +95,7 @@ function Checkout() {
                 <label htmlFor="address">Adres Bilgisi</label>
                 <input type="text"
                     id='address'
-                    className={`checkout-input ${errors.city ? 'has-error' : ''}`}
+                    className={`checkout-input ${errors.address ? 'has-error' : ''}`}
                     {...register('address')}
                 />
                 {errors.address && <p className='field-error'>{errors.address.message}</p>}

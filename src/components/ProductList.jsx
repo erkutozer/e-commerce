@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllProducts } from '../redux/productSlice';
 import Product from './Product';
@@ -11,7 +11,7 @@ function ProductList() {
 
     useEffect(() => {
         dispatch(getAllProducts())
-    }, [])
+    }, [dispatch])
 
     const filteredProducts = products.filter(product => product.title.toLowerCase().includes(search.trim().toLowerCase()));
 

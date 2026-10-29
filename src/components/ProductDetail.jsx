@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom'
 import { CiSquareMinus, CiSquarePlus } from "react-icons/ci";
 import { addToBasket } from '../redux/basketSlice';
