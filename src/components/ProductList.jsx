@@ -16,7 +16,7 @@ function ProductList() {
 
     }, [dispatch])
 
-    if (status === "idle" || "loading") {
+    if (status === "loading") {
         return <p>Ürünler yükleniyor...</p>
     }
     if (status === "failed") {
