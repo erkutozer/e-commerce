@@ -4,7 +4,9 @@ import axios from "axios";
 
 const initialState = {
     products: [],
-    search: ''
+    search: '',
+    status: 'idle',
+    error: null
 }
 
 export const getAllProducts = createAsyncThunk('product', async () => {
@@ -21,9 +23,18 @@ export const productSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
-        builder.addCase(getAllProducts.fulfilled, (state, action) => {
-            state.products = action.payload;
-        })
+        builder.addCase(getAllProducts.pending, (state) => {
+            state.status = 'loading';
+        }),
+            builder.addCase(getAllProducts.rejected, (state, action) => {
+                state.status = "failed";
+                state.error = action.payload ?? "Beklenmeyen bir hata oluştu"
+            }),
+
+            builder.addCase(getAllProducts.fulfilled, (state, action) => {
+                state.status = "succeeded";
+                state.products = action.payload;
+            })
     }
 })
 

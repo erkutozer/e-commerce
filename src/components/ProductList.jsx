@@ -5,13 +5,23 @@ import Product from './Product';
 
 function ProductList() {
 
-    const { products, search } = useSelector(store => store.products);
+    const { products, search, status, error } = useSelector(store => store.products);
     const dispatch = useDispatch();
 
 
     useEffect(() => {
-        dispatch(getAllProducts())
+        if (status === "idle") {
+            dispatch(getAllProducts())
+        }
+
     }, [dispatch])
+
+    if (status === "idle" || "loading") {
+        return <p>Ürünler yükleniyor...</p>
+    }
+    if (status === "failed") {
+        return <p role='alert'>{error}</p>
+    }
 
     const filteredProducts = products.filter(product => product.title.toLowerCase().includes(search.trim().toLowerCase()));
 
