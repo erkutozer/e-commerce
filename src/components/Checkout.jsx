@@ -1,10 +1,10 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 import { clearBasket, selectTotalPrice } from '../redux/basketSlice';
 import { useNavigate } from 'react-router-dom';
-import { yupResolver } from '@hookform/resolvers/yup'
+import { yupResolver } from '@hookform/resolvers/yup';
 import { checkoutSchema } from '../validation/checkoutSchema';
 import { useForm } from 'react-hook-form';
-import '../css/Checkout.css'
+import '../css/Checkout.css';
 
 function Checkout() {
 

@@ -14,7 +14,7 @@ function ProductList() {
             dispatch(getAllProducts())
         }
 
-    }, [dispatch])
+    }, [status, dispatch])
 
     if (status === "loading") {
         return <p>Ürünler yükleniyor...</p>
