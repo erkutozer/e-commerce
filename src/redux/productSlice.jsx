@@ -1,17 +1,23 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import api from "../api/client";
 
 
 const initialState = {
     products: [],
-    search: '',
+    searchTerm: '',
     status: 'idle',
-    error: null
+    error: null,
+    page: 0,
+    totalPages: 0,
+    totalElements: 0,
 }
 
-export const getAllProducts = createAsyncThunk('product', async () => {
-    const response = await axios.get("https://dummyjson.com/products");
-    return response.data.products;
+export const getAllProducts = createAsyncThunk('product', async ({ search, page }, { signal }) => {
+    const response = await api.get('/products/getAll', {
+        params: { search: search || undefined, page, size: 12 }, signal
+    });
+    return response.data;
 })
 
 export const productSlice = createSlice({
@@ -19,7 +25,10 @@ export const productSlice = createSlice({
     initialState,
     reducers: {
         setSearch: (state, action) => {
-            state.search = action.payload;
+            state.searchTerm = action.payload;
+        },
+        setPage: (state, action) => {
+            state.page = action.payload;
         }
     },
     extraReducers: (builder) => {
@@ -33,10 +42,12 @@ export const productSlice = createSlice({
 
             builder.addCase(getAllProducts.fulfilled, (state, action) => {
                 state.status = "succeeded";
-                state.products = action.payload;
+                state.products = action.payload.content;
+                state.totalPages = action.payload.totalPages;
+                state.totalElements = action.payload.totalElements;
             })
     }
 })
 
-export const { setSearch } = productSlice.actions;
+export const { setSearch, setPage } = productSlice.actions;
 export default productSlice.reducer;

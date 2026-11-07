@@ -15,7 +15,7 @@ function Header() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { basket } = useSelector(store => store.basket)
-    const { search } = useSelector(store => store.products);
+    const { searchTerm } = useSelector(store => store.products);
 
     useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme);
@@ -39,7 +39,7 @@ function Header() {
 
 
             <div className='flex-row'>
-                <input className='search-input' type="text" placeholder='Bir şeyler aratın' value={search} onChange={handleSearch} />
+                <input className='search-input' type="text" placeholder='Bir şeyler aratın' value={searchTerm} onChange={handleSearch} />
                 <div>
                     {theme === 'light'
                         ? <FiMoon className='icon' onClick={changeTheme} />
