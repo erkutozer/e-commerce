@@ -5,10 +5,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { checkoutSchema } from '../validation/checkoutSchema';
 import { useForm } from 'react-hook-form';
 import '../css/Checkout.css';
+import { useState } from 'react';
+import api from '../api/client';
 
 function Checkout() {
 
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
         resolver: yupResolver(checkoutSchema),
         mode: 'onTouched'
     })
@@ -17,6 +19,7 @@ function Checkout() {
     const totalPrice = useSelector(selectTotalPrice);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [submitError, setSubmitError] = useState(null);
 
     if (basket.length === 0) {
         return (
@@ -27,16 +30,24 @@ function Checkout() {
         );
     }
 
-    const onSubmit = (data) => {
-        const order = {
-            orderNumber: `SP-${Date.now()}`,
-            customer: data,
-            items: basket,
-            totalPrice: totalPrice,
-        };
-        dispatch(clearBasket())
-        navigate('/order-success', { state: { order }, replace: true });
-    }
+    const onSubmit = async (data) => {
+        setSubmitError(null);
+        try {
+            const response = await api.post('/orders', {
+                fullName: data.fullName,
+                email: data.email,
+                phone: data.phone,
+                city: data.city,
+                address: data.address,
+                items: basket.map(p => ({ productId: p.id, quantity: p.count }))
+            });
+            dispatch(clearBasket());
+            navigate('/order-success', { state: { order: response.data }, replace: true });
+        } catch (error) {
+            setSubmitError(error.response?.data?.message ?? "Sipariş gönderilemedi, lütfen tekrar deneyin");
+        }
+
+    };
 
     return (
         <div style={{ maxWidth: '700px', margin: '30px auto', padding: '0 20px' }}>
@@ -100,8 +111,10 @@ function Checkout() {
                 />
                 {errors.address && <p className='field-error'>{errors.address.message}</p>}
 
-                <button type='submit' style={{ marginTop: '20px', padding: '12px' }} >Siparişi onayla</button>
-
+                <button type='submit' style={{ marginTop: '20px', padding: '12px' }} >
+                    {isSubmitting ? "Gönderiliyor" : "Siparişi Onayla"}
+                </button>
+                {submitError && <p className='field-error'>{submitError}</p>}
             </form>
 
         </div>

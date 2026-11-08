@@ -15,10 +15,10 @@ function OrderSuccess() {
         <div>
             <h2 style={{ color: 'green' }}>Siparişiniz alındı</h2>
             <p>Sipariş Numaranız : <strong>{orderNumber}</strong></p>
-            <p>Teşekkürler <strong>{customer.fullName}</strong>, Sipariş detayları <strong>{customer.email} adresine gönderildi.</strong> :</p>
+            <p>Teşekkürler <strong>{order.fullName}</strong>, Sipariş detayları <strong>{order.email} adresine gönderildi.</strong> :</p>
             <h3 style={{ marginTop: '30px' }}>Teslimat Adresi</h3>
-            <p>{customer.address}, {customer.city}</p>
-            <p>Telefon : {customer.phone}</p>
+            <p>{order.address}, {order.city}</p>
+            <p>Telefon : {order.phone}</p>
 
             <h3 style={{ marginTop: '30px' }}>Ürünler</h3>
             {
