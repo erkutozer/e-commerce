@@ -4,6 +4,11 @@ import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 import { store } from './redux/store.jsx'
 import './index.css'
+import { setupInterceptions } from './api/client.js'
+import { logout } from './redux/authSlice.jsx'
+
+
+setupInterceptions(store, () => store.dispatch(logout()));
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>

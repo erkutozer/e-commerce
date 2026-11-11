@@ -5,7 +5,7 @@ function isTokenExpired(token) {
     try {
         const payload = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
         const { exp } = JSON.parse(atob(payload));
-        return exp * 100 <= Date.now()
+        return exp * 1000 <= Date.now()
     } catch (error) {
         return true;
     }
@@ -14,7 +14,7 @@ function isTokenExpired(token) {
 function loadAuth() {
     try {
         const saved = JSON.parse(localStorage.getItem('auth'));
-        if (saved?.token && !isTokenExpired(saved.token)) return saved
+        if (saved?.token && !isTokenExpired(saved.token)) return saved;
     } catch (error) {
 
     }

@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react'
 import Badge from '@mui/material/Badge';
 import { CiShoppingBasket } from "react-icons/ci";
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import '../css/Header.css'
 import { FiMoon } from "react-icons/fi";
 import { CiLight } from "react-icons/ci";
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDrawer } from '../redux/basketSlice';
 import { setSearch } from '../redux/productSlice';
+import { logout } from '../redux/authSlice';
 
 function Header() {
 
@@ -16,6 +17,8 @@ function Header() {
     const dispatch = useDispatch();
     const { basket } = useSelector(store => store.basket)
     const { searchTerm } = useSelector(store => store.products);
+    const { user } = useSelector(store => store.auth);
+    const location = useLocation();
 
     useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme);
@@ -24,10 +27,18 @@ function Header() {
 
     const handleSearch = (e) => {
         dispatch(setSearch(e.target.value))
+        if (location.pathname !== '/') {
+            navigate('/');
+        }
     }
 
     const changeTheme = () => {
         setTheme(prev => (prev === 'light' ? 'dark' : 'light'))
+    }
+
+    const handleLogout = () => {
+        dispatch(logout());
+        navigate('/');
     }
 
     return (
@@ -48,6 +59,18 @@ function Header() {
                         <CiShoppingBasket className='icon' />
                     </Badge>
                 </div>
+
+                {user ? (
+                    <div className='flex-row' style={{ gap: '10px', marginLeft: '15px' }}>
+                        <span>Merhaba, {user.fullName.split('')[0]}</span>
+                        <button onClick={handleLogout} >Çıkış</button>
+                    </div>
+                ) : (
+                    <div className='flex-row' style={{ gap: '10px', marginLeft: '15px' }}>
+                        <button onClick={() => navigate('/login')} >Giriş yap</button>
+                        <button onClick={() => navigate('/register')} >Kayıt ol</button>
+                    </div>
+                )}
             </div>
         </div>
     )
