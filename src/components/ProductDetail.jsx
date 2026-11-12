@@ -6,6 +6,7 @@ import { addToBasket } from '../redux/basketSlice';
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
 import axios from 'axios';
+import api from '../api/client';
 
 function ProductDetail() {
     let { id } = useParams();
@@ -16,7 +17,7 @@ function ProductDetail() {
 
     useEffect(() => {
         let ignore = false;
-        axios.get(`https://dummyjson.com/products/${id}`)
+        api.get(`/products/${id}`)
             .then(res => {
                 if (!ignore) setResult({ id, product: res.data, error: null });
             })

@@ -4,13 +4,14 @@ function OrderSuccess() {
 
     const { state } = useLocation();
     const order = state?.order;
+    console.log(order);
     const navigate = useNavigate();
 
     if (!order) {
         return <Navigate to='/' replace />
     }
 
-    const { orderNumber, customer, items, totalPrice } = order;
+    const { orderNumber, items, totalAmount } = order;
     return (
         <div>
             <h2 style={{ color: 'green' }}>Siparişiniz alındı</h2>
@@ -23,14 +24,14 @@ function OrderSuccess() {
             <h3 style={{ marginTop: '30px' }}>Ürünler</h3>
             {
                 items.map((product) => (
-                    <div key={product.id} className='flex-row' style={{ justifyContent: 'space-between' }}>
+                    <div key={product.productId} className='flex-row' style={{ justifyContent: 'space-between' }}>
                         <p>{product.title} x {product.count}</p>
                         <p>{product.price * product.count}$</p>
 
                     </div>
                 ))
             }
-            <h3 style={{ fontWeight: 'bold' }}>Toplam tutar : {totalPrice.toFixed(2)}</h3>
+            <h3 style={{ fontWeight: 'bold' }}>Toplam tutar : {totalAmount.toFixed(2)}</h3>
             <button onClick={() => navigate('/')} style={{ marginTop: '20px', padding: '12px' }}>Alışverişe devam et</button>
         </div>
     )

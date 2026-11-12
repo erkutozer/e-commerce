@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, Navigate, useLocation } from 'react-router-dom';
@@ -13,6 +13,7 @@ function Login() {
 
     const { token, status, error } = useSelector(store => store.auth);
     const from = location.state?.from?.pathname ?? '/';
+    console.log(from)
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(loginSchema),
@@ -66,8 +67,6 @@ function Login() {
             <p style={{ marginTop: '20px' }}>
                 Hesabın yok mu? <Link to='/register'>Kayıt ol</Link>
             </p>
-
-
         </div>
     )
 }

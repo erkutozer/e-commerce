@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 import api from "../api/client";
 
 
@@ -14,7 +13,7 @@ const initialState = {
 }
 
 export const getAllProducts = createAsyncThunk('product', async ({ search, page }, { signal }) => {
-    const response = await api.get('/products/getAll', {
+    const response = await api.get('/products', {
         params: { search: search || undefined, page, size: 12 }, signal
     });
     return response.data;
