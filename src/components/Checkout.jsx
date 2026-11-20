@@ -10,10 +10,16 @@ import api from '../api/client';
 
 function Checkout() {
 
+    const { user } = useSelector(store => store.auth);
+
     const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
         resolver: yupResolver(checkoutSchema),
-        mode: 'onTouched'
-    })
+        mode: 'onTouched',
+        defaultValues: {
+            fullName: user?.fullName ?? '',
+            email: user?.email ?? ''
+        }
+    });
 
     const { basket } = useSelector(store => store.basket);
     const totalPrice = useSelector(selectTotalPrice);

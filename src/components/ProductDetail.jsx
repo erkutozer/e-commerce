@@ -5,7 +5,6 @@ import { CiSquareMinus, CiSquarePlus } from "react-icons/ci";
 import { addToBasket } from '../redux/basketSlice';
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
-import axios from 'axios';
 import api from '../api/client';
 
 function ProductDetail() {

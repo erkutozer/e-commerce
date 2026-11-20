@@ -13,7 +13,7 @@ const initialState = {
 }
 
 export const getAllProducts = createAsyncThunk('product', async ({ search, page }, { signal }) => {
-    const response = await api.get('/products', {
+    const response = await api.get('/products/', {
         params: { search: search || undefined, page, size: 12 }, signal
     });
     return response.data;
