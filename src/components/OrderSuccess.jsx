@@ -12,6 +12,7 @@ function OrderSuccess() {
     }
 
     const { orderNumber, items, totalAmount } = order;
+    console.log(order);
     return (
         <div>
             <h2 style={{ color: 'green' }}>Siparişiniz alındı</h2>
@@ -25,14 +26,16 @@ function OrderSuccess() {
             {
                 items.map((product) => (
                     <div key={product.productId} className='flex-row' style={{ justifyContent: 'space-between' }}>
-                        <p>{product.title} x {product.count}</p>
-                        <p>{product.price * product.count}$</p>
-
+                        <img src={product.thumbnail} width={60} height={60} />
+                        <p>{product.title} x {product.quantity}</p>
+                        <p>{product.lineTotal}$</p>
+                        {console.log(product)}
                     </div>
                 ))
             }
             <h3 style={{ fontWeight: 'bold' }}>Toplam tutar : {totalAmount.toFixed(2)}</h3>
             <button onClick={() => navigate('/')} style={{ marginTop: '20px', padding: '12px' }}>Alışverişe devam et</button>
+            <button onClick={() => navigate('/orders')} >Siparişlerim</button>
         </div>
     )
 }

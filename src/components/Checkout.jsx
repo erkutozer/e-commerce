@@ -45,6 +45,7 @@ function Checkout() {
                 phone: data.phone,
                 city: data.city,
                 address: data.address,
+                thumbnail: data.thumbnail,
                 items: basket.map(p => ({ productId: p.id, quantity: p.count }))
             });
             dispatch(clearBasket());

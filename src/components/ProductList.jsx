@@ -37,15 +37,15 @@ function ProductList() {
 
             </div>
 
-            {totalPages > 1} && (
-            <div className='flex-row' style={{ margin: '30px 0' }}>
-                <Pagination
-                    count={totalPages}
-                    page={page + 1}
-                    onChange={(_, value) => dispatch(setPage(value - 1))}
-                />
-            </div>
-            )
+            {totalPages > 1 && (
+                <div className='flex-row' style={{ margin: '30px 0' }}>
+                    <Pagination
+                        count={totalPages}
+                        page={page + 1}
+                        onChange={(_, value) => dispatch(setPage(value - 1))}
+                    />
+                </div>
+            )}
         </>
     )
 }

@@ -62,7 +62,8 @@ function Header() {
 
                 {user ? (
                     <div className='flex-row' style={{ gap: '10px', marginLeft: '15px' }}>
-                        <span>Merhaba, {user.fullName.split('')[0]}</span>
+                        <span>Merhaba, {user.fullName.split(' ')[0]}</span>
+                        <button onClick={() => navigate("/orders")} >Siparişlerim</button>
                         <button onClick={handleLogout} >Çıkış</button>
                     </div>
                 ) : (

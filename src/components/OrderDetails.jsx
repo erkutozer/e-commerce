@@ -42,21 +42,24 @@ function OrderDetails() {
             <p>{formatDate(order.createAt)}</p>
 
             <h3>Teslimat</h3>
-            <p>{order.fullName}</p>
-            <p>{order.address} / {order.city}</p>
-            <p>{order.phone} - {order.email}</p>
+            <p>İsim : {order.fullName}</p>
+            <p>Adres : {order.address} / {order.city}</p>
+            <p>Telefon - E-posta : {order.phone} - {order.email}</p>
 
             <h3>Ürünler</h3>
             {
                 order.items.map(item => (
+
                     <div key={item.productId} className='flex-row' style={{ justifyContent: 'space-between' }}>
+                        <img src={item.images?.[0] || item.thumbnail} width={100} height={100} />
                         <p>{item.title} x {item.quantity}</p>
-                        <p style={{ fontWeight: 'bold' }}>{formatPrice(item.price)}</p>
+                        <p style={{ fontWeight: 'bold' }}>{formatPrice(item.unitPrice)}$</p>
+                        {console.log(item)}
                     </div>
                 ))
             }
 
-            <h3 style={{ textAlign: 'right' }}>Toplam : {formatPrice(order.totalAmount)}</h3>
+            <h3 style={{ textAlign: 'right' }}>Toplam : {formatPrice(order.totalAmount)}$</h3>
 
         </div>
     )
