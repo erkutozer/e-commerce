@@ -118,7 +118,7 @@ function Checkout() {
                 />
                 {errors.address && <p className='field-error'>{errors.address.message}</p>}
 
-                <button type='submit' style={{ marginTop: '20px', padding: '12px' }} >
+                <button disabled={isSubmitting} type='submit' style={{ marginTop: '20px', padding: '12px' }} >
                     {isSubmitting ? "Gönderiliyor" : "Siparişi Onayla"}
                 </button>
                 {submitError && <p className='field-error'>{submitError}</p>}

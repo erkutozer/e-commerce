@@ -4,7 +4,6 @@ function OrderSuccess() {
 
     const { state } = useLocation();
     const order = state?.order;
-    console.log(order);
     const navigate = useNavigate();
 
     if (!order) {
@@ -12,7 +11,6 @@ function OrderSuccess() {
     }
 
     const { orderNumber, items, totalAmount } = order;
-    console.log(order);
     return (
         <div>
             <h2 style={{ color: 'green' }}>Siparişiniz alındı</h2>
@@ -29,7 +27,6 @@ function OrderSuccess() {
                         <img src={product.thumbnail} width={60} height={60} />
                         <p>{product.title} x {product.quantity}</p>
                         <p>{product.lineTotal}$</p>
-                        {console.log(product)}
                     </div>
                 ))
             }

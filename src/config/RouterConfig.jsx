@@ -16,14 +16,12 @@ function RouterConfig() {
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='/productDetail/:id' element={<ProductDetail />} />
-                <Route path='/checkout' element={<Checkout />} />
-                <Route path='/order-success' element={<OrderSuccess />} />
+                <Route path='/checkout' element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/register' element={<Register />} />
-                <Route path='/checkout' element={<ProtectedRoute><OrderSuccess /></ProtectedRoute>} />
+                <Route path='/order-success' element={<ProtectedRoute><OrderSuccess /></ProtectedRoute>} />
                 <Route path='/orders' element={<ProtectedRoute><OrderList /></ProtectedRoute>} />
                 <Route path='/orders/:orderNumber' element={<ProtectedRoute><OrderDetails /></ProtectedRoute>} />
-
 
                 <Route path='*' element={<NoPageFound />} />
             </Routes>

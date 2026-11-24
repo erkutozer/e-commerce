@@ -7,7 +7,8 @@ function isTokenExpired(token) {
         const { exp } = JSON.parse(atob(payload));
         return exp * 1000 <= Date.now() // false gelirse -> süresi dolmamış
     } catch (error) {
-        console.log(error.message);
+        console.log(error);
+        return true;
     }
 }
 

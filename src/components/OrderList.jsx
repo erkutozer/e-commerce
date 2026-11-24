@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import api from '../api/client';
 import { formatDate, formatPrice } from '../utils/format'
@@ -28,7 +28,6 @@ function OrderList() {
     const loading = result.page !== page;
 
     const { data, error } = result;
-    console.log(data);
 
     if (loading) return <p>Siparişler yükleniyor...</p>
     if (error) return <p>Siparişler yüklenemedi. Hata : {error}</p>

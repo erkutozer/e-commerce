@@ -47,7 +47,6 @@ function ProductDetail() {
     if (loading) return <p>Yükleniyor...</p>;
     if (error) return <p>Ürün yüklenemedi : {error}</p>;
 
-    console.log(typeof count)
 
     const { images, price, title, thumbnail, description } = product;
     return (

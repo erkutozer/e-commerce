@@ -9,6 +9,7 @@ export const loginSchema = yup.object({
 
 export const registerSchema = yup.object({
     fullName: yup.string().required("Bu alan zorunludur.").min(3, "En az 3 karakter girin"),
+    email: yup.string().email("Lütfen bir e-posta giriniz.").required("Bu alan boş bırakılamaz."),
     password: yup.string().required("Parola alanı zorunludur").min(8, "En az 8 karakter giriniz").max(20, "En fazla 20 karakter girebilirsiniz."),
     confirmPassword: yup.string().required("Parola tekrarı zorunludur").oneOf([yup.ref("password")], "Parolalar eşleşmiyor")
 })

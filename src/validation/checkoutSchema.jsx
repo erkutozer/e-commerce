@@ -5,5 +5,5 @@ export const checkoutSchema = yup.object({
     email: yup.string().required('Email alanı zorunludur').email('Lütfen geçerli bir e-posta giriniz.'),
     phone: yup.string().required('Telefon alanı zorunludur.').matches(/^05\d{9}$/, '05 ile başlayan 11 haneli numara girin'),
     city: yup.string().required('Şehir zorunludur.'),
-    address: yup.string().required('Adres zorunludur.').min(10, 'Lütfen adresi daha detaylı yazınız.')
+    address: yup.string().required('Adres zorunludur.').min(10, 'Lütfen adresi daha detaylı yazınız.').max(70, "En fazla 70 karakter girebilirsiniz.")
 });

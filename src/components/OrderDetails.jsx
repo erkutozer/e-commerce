@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import api from '../api/client';
 import { formatDate, formatPrice } from '../utils/format';
@@ -18,7 +18,7 @@ function OrderDetails() {
             .catch(err => {
                 if (!ignore) setResult({ orderNumber, order: null, error: err.response?.data?.message ?? err.message })
             })
-        return () => { ignore: true }
+        return () => { ignore = true }
     }, [orderNumber])
 
     const loading = result.orderNumber !== orderNumber;
@@ -54,7 +54,6 @@ function OrderDetails() {
                         <img src={item.images?.[0] || item.thumbnail} width={100} height={100} />
                         <p>{item.title} x {item.quantity}</p>
                         <p style={{ fontWeight: 'bold' }}>{formatPrice(item.unitPrice)}$</p>
-                        {console.log(item)}
                     </div>
                 ))
             }
